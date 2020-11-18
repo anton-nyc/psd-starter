@@ -1,11 +1,15 @@
 import React from 'react';
+
 import { Link, graphql, useStaticQuery } from 'gatsby';
+
 import BlogPost from './BlogPost';
+
 export default function BlogList() {
   const data = useStaticQuery(graphql`
     {
       allMarkdownRemark(
         sort: { fields: frontmatter___date, order: DESC }
+        filter: { frontmatter: { contentKey: { eq: "blog" }}}
         limit: 3
         ) {
         edges {
@@ -24,6 +28,7 @@ export default function BlogList() {
       }
     }
   `);
+
   return (
     <div>
       {data.allMarkdownRemark.edges.map(edge => (
@@ -36,7 +41,7 @@ export default function BlogList() {
         />
       ))}
       <div>
-        <Link to="/blog">More>></Link>
+        <Link to="/blog">More &gt;&gt;</Link>
       </div>
     </div>
   );
